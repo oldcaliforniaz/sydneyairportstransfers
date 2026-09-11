@@ -1203,19 +1203,34 @@ sub {
 
 .navbar-brand {
   display: inline-block;
+  margin-right: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  line-height: 1;
 }
 
-.logo-scrolled {
-  display: none;
+/* Consistent logo size across all breakpoints so it never jumps */
+.navbar-brand img {
+  max-height: 36px;
+  width: auto;
+  height: auto;
+  display: block;
 }
 
-/* Navbar scrolled state */
+/* IMPORTANT: Do NOT force display:none here.
+   Visibility is controlled by Bootstrap utilities already present on the elements:
+   - .logo-default  →  d-none d-lg-block  (desktop only)
+   - .logo-scrolled →  d-block d-lg-none  (mobile only)
+   The previous hard "display: none" on .logo-scrolled overrode Bootstrap
+   and caused the logo to disappear / shift on mobile and at breakpoints. */
+
+/* Navbar scrolled state (kept for compatibility; currently no JS adds .scrolled) */
 .navbar.scrolled .logo-default {
-  display: none;
+  display: none !important;
 }
 
 .navbar.scrolled .logo-scrolled {
-  display: inline-block;
+  display: inline-block !important;
 }
 
 .navbar.scrolled {
